@@ -113,6 +113,7 @@ view: xxvia_vw_adis_mensajes {
     sql: ${TABLE}.MOBIL ;;
   }
   dimension: nombrecliente {
+    label: "Nombre"
     type: string
     sql: ${TABLE}.NOMBRECLIENTE ;;
   }
