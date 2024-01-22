@@ -17,22 +17,93 @@ view: xxvia_vw_adis_mensajes {
     type: string
     sql: ${TABLE}.E_MAIL ;;
   }
-  dimension: fecha_adi1 {
-    type: string
-    sql: ${TABLE}.FECHA_ADI1 ;;
-  }
+
   dimension_group: fechamodificado {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
     datatype: datetime
     sql: ${TABLE}.FECHAMODIFICADO ;;
   }
+
+
+  dimension: Telefono {
+    type: string
+    sql:RIGHT(${TABLE}.MOBIL,10)  ;;
+  }
+
+  dimension: Val_telefono {
+    type: number
+    sql: case when LENGTH (${Telefono}) =10 then 1 else 0 end ;;
+  }
+
+
+
+  #adi_feliz_cumpleaos #############################################################################################
+
   dimension_group: fechanacimiento {
     type: time
     timeframes: [raw, time, date, week, month, quarter, year]
     datatype: datetime
     sql: ${TABLE}.FECHANACIMIENTO ;;
   }
+
+  dimension: dif_year {
+    type: number
+    sql: DATE_DIFF( ${TABLE}.FECHANACIMIENTO, CURRENT_DATE, year) ;;
+  }
+
+  dimension: Birthday_Date {
+    type: date
+    sql:  CAST(DATE_ADD( ${TABLE}.FECHANACIMIENTO, INTERVAL ${dif_year}*-1 year) AS TIMESTAMP)    ;;
+  }
+
+
+  dimension: PLAN_FC {
+    type: string
+    sql: "adi_feliz_cumpleaos" ;;
+  }
+
+  dimension: Url_Fc {
+    type: string
+    sql: "https://storage.googleapis.com/imagenes-productos/Imagenes_EON/ADIcumplea%C3%B1os-100.jpg" ;;
+  }
+
+  #####################################################################################################################
+
+  #adi_aniversario_vianney###########################################################################################
+
+  dimension: fecha_adi1 {
+    type: date
+    sql: concat(SUBSTRING(${TABLE}.FECHA_ADI1,7,4),'-', SUBSTRING(${TABLE}.FECHA_ADI1,1,2),'-',SUBSTRING(${TABLE}.FECHA_ADI1,4,2)) ;;
+  }
+
+
+  dimension: dif_year_aniversario {
+    type: number
+    sql: DATE_DIFF( ${fecha_adi1}, CURRENT_DATE, year) ;;
+  }
+
+  dimension: Anniversary_date {
+    type: date
+    sql:  CAST(DATE_ADD( ${fecha_adi1}, INTERVAL ${dif_year_aniversario}*-1 year) AS TIMESTAMP)    ;;
+  }
+
+
+  dimension: PLAN_FA {
+    type: string
+    sql: "adi_aniversario_vianney" ;;
+  }
+
+  dimension: Url_FA {
+    type: string
+    sql: "https://storage.googleapis.com/imagenes-productos/Imagenes_EON/ADIaniversario-100.jpg" ;;
+  }
+
+   #####################################################################################################################
+
+
+
+
   dimension: idtarjeta {
     type: number
     sql: ${TABLE}.IDTARJETA ;;
