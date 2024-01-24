@@ -103,6 +103,35 @@ view: xxvia_vw_adis_mensajes {
    #####################################################################################################################
 
 
+  dimension: PLAN_ST {
+    type: string
+    sql: "adi_sube_a_adi_tutora" ;;
+  }
+
+  dimension: PLAN_BA {
+    type: string
+    sql: "adi_tutora_baja_a_adi" ;;
+  }
+
+  dimension: PLAN_SC {
+    type: string
+    sql: "adi_tutora_sube_a_adi_consejera" ;;
+  }
+
+  dimension: PLAN_BT {
+    type: string
+    sql: "adi_consejera_baja_a_adi_tutora" ;;
+  }
+
+  dimension: Url_logo {
+    type: string
+    sql: "https://storage.googleapis.com/imagenes-productos/Imagenes_EON/LOGO-MIVIANNEY1.png" ;;
+  }
+
+
+
+
+
 
 
   dimension: idtarjeta {
