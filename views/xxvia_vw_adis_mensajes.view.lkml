@@ -29,7 +29,7 @@ view: xxvia_vw_adis_mensajes {
   dimension: Telefono {
     type: string
    # sql:RIGHT(${TABLE}.MOBIL,10)  ;;
-     sql: '5547870452' ;;
+     sql: '5566532268' ;;
   }
 
   dimension: Val_telefono {
@@ -129,9 +129,10 @@ view: xxvia_vw_adis_mensajes {
   }
 
 
-
-
-
+  dimension: compra {
+    type: string
+    sql: "$199MXN" ;;
+  }
 
 
   dimension: idtarjeta {
