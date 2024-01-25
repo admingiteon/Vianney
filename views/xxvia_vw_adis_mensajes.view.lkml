@@ -46,6 +46,8 @@ view: xxvia_vw_adis_mensajes {
 
 
 
+
+
   #adi_feliz_cumpleaos #############################################################################################
 
   dimension_group: fechanacimiento {
