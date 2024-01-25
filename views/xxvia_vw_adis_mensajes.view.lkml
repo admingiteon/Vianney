@@ -37,6 +37,12 @@ view: xxvia_vw_adis_mensajes {
     sql: case when LENGTH (${Telefono}) =10 then 1 else 0 end ;;
   }
 
+  dimension: Val_nombre {
+    type: number
+    sql: case when LENGTH (${nombrecliente}) >3 then 1 else 0 end ;;
+  }
+
+
 
 
   #adi_feliz_cumpleaos #############################################################################################
