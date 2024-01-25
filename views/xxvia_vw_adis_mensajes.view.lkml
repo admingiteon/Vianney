@@ -2,6 +2,7 @@ view: xxvia_vw_adis_mensajes {
   sql_table_name: `dwh_vianney.xxvia_vw_ADIs_Mensajes` ;;
 
   dimension: codcliente {
+    primary_key: yes
     type: number
     sql: ${TABLE}.CODCLIENTE ;;
   }
@@ -73,6 +74,24 @@ view: xxvia_vw_adis_mensajes {
   dimension: Url_Fc {
     type: string
     sql: "https://storage.googleapis.com/imagenes-productos/Imagenes_EON/ADIcumplea%C3%B1os-100.jpg" ;;
+  }
+
+
+
+  dimension_group: Fecha_ingreso {
+    label: "Fecha ingreso"
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      month_name,
+      year
+    ]
+    sql: CAST(concat(SUBSTRING(${TABLE}.FECHA_ADI1,7,4),'-', SUBSTRING(${TABLE}.FECHA_ADI1,1,2),'-',SUBSTRING(${TABLE}.FECHA_ADI1,4,2))  AS TIMESTAMP) ;;
   }
 
   #####################################################################################################################

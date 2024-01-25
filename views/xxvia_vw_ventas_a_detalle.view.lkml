@@ -28,6 +28,7 @@ view: xxvia_vw_ventas_a_detalle {
     sql: ${TABLE}.REPORTE_DE_VENTAS ;;
   }
   dimension: salesrep_id {
+    primary_key: yes
     type: string
     sql: ${TABLE}.SALESREP_ID ;;
   }
@@ -38,6 +39,11 @@ view: xxvia_vw_ventas_a_detalle {
   dimension: vendedor {
     type: string
     sql: ${TABLE}.VENDEDOR ;;
+  }
+
+  measure: Total_ventas {
+    type: sum_distinct
+    sql: ${TABLE}.Importe ;;
   }
   measure: count {
     type: count
