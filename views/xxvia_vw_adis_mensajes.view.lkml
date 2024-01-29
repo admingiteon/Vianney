@@ -43,6 +43,11 @@ view: xxvia_vw_adis_mensajes {
     sql: case when LENGTH (${nombrecliente}) >3 then 1 else 0 end ;;
   }
 
+  measure: total_ventas{
+    type: number
+    sql: ${xxvia_vw_ventas_a_detalle.Total_ventas_trimestral} + ${xxvia_vw_puntos_usados.Total_ventas_trimestral} ;;
+  }
+
 
 
 

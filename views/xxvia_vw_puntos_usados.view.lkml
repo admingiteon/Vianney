@@ -1,5 +1,16 @@
 view: xxvia_vw_puntos_usados {
-  sql_table_name: `dwh_vianney.xxvia_vw_puntos_usados` ;;
+  #sql_table_name: `dwh_vianney.xxvia_vw_puntos_usados` ;;
+
+
+  derived_table: {
+    sql: SELECT  ROW_NUMBER() OVER() row_number,* from `dwh_vianney.xxvia_vw_puntos_usados`;;
+  }
+
+  dimension: row_number {
+    primary_key: yes
+    type: number
+    sql: ${TABLE}.row_number ;;
+  }
 
   dimension: codcliente {
     type: number
@@ -15,6 +26,33 @@ view: xxvia_vw_puntos_usados {
     type: number
     sql: ${TABLE}.Importe ;;
   }
+
+
+  dimension: Filtro_Mes_Anterior{
+    hidden: yes
+    type: yesno
+    sql: DATE_TRUNC(CAST(${fecha_date} AS DATE),DAY) >= DATE_TRUNC(DATE_ADD(DATE_ADD(LAST_DAY(CAST(CURRENT_DATE() AS DATE)), INTERVAL 1 DAY),INTERVAL -3 MONTH), month) AND DATE_TRUNC(CAST(${fecha_date} AS DATE),DAY) <= LAST_DAY(DATE_ADD(DATE_ADD(LAST_DAY(CAST(CURRENT_DATE() AS DATE)), INTERVAL 1 DAY),INTERVAL 0 MONTH))  ;;
+
+  }
+
+
+  measure: Total_ventas {
+    type: sum
+    sql: ${TABLE}.Importe ;;
+  }
+
+  measure: Total_ventas_trimestral {
+    type: sum
+    sql: ${TABLE}.Importe ;;
+
+    filters: {
+      field: Filtro_Mes_Anterior
+      value: "yes"
+    }
+  }
+
+
+
   dimension: reporte_de_ventas {
     type: number
     sql: ${TABLE}.REPORTE_DE_VENTAS ;;
