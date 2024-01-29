@@ -38,4 +38,19 @@ explore: xxvia_vw_puntos_disponibles {}
 
 explore: xxvia_vw_puntos_usados {}
 
-explore: xxvia_vw_ventas_a_detalle {}
+explore: xxvia_vw_ventas_a_detalle {
+
+  join: xxvia_vw_adis_mensajes {
+    type: left_outer
+    sql_on: ${xxvia_vw_adis_mensajes.codcliente} = ${xxvia_vw_ventas_a_detalle.codcliente} ;;
+    relationship: many_to_one
+  }
+
+  join: xxvia_vw_puntos_disponibles {
+    type: left_outer
+    sql_on: ${xxvia_vw_adis_mensajes.idtarjeta} = ${xxvia_vw_puntos_disponibles.idtarjeta} ;;
+    relationship: many_to_one
+  }
+
+}
+explore: ventas_puntos {}

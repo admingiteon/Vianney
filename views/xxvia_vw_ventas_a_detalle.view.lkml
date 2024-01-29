@@ -84,6 +84,9 @@ view: xxvia_vw_ventas_a_detalle {
   }
 
 
+
+
+
   measure: count {
     type: count
   }

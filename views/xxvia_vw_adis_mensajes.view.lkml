@@ -43,18 +43,6 @@ view: xxvia_vw_adis_mensajes {
     sql: case when LENGTH (${nombrecliente}) >3 then 1 else 0 end ;;
   }
 
-  measure: total_ventas{
-    type: number
-    sql:( ${xxvia_vw_ventas_a_detalle.Total_ventas_trimestral} + ${xxvia_vw_puntos_usados.Total_ventas_trimestral})/3 ;;
-  }
-
-
-  dimension: Tipo_adi_trimestral {
-    type: string
-    sql: case when ( ${xxvia_vw_ventas_a_detalle.Total_ventas_trimestral} + ${xxvia_vw_puntos_usados.Total_ventas_trimestral})/3 <=2999 then "ADI"
-              when ( ${xxvia_vw_ventas_a_detalle.Total_ventas_trimestral} + ${xxvia_vw_puntos_usados.Total_ventas_trimestral})/3 >=3000 AND ( ${xxvia_vw_ventas_a_detalle.Total_ventas_trimestral} + ${xxvia_vw_puntos_usados.Total_ventas_trimestral})/3 <=9999 then "TUTORA"
-              when ( ${xxvia_vw_ventas_a_detalle.Total_ventas_trimestral} + ${xxvia_vw_puntos_usados.Total_ventas_trimestral})/3 >=10000 then "CONSEJERA" END;;
-  }
 
 
 
