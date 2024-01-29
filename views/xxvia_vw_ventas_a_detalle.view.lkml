@@ -19,6 +19,19 @@ view: xxvia_vw_ventas_a_detalle {
     datatype: datetime
     sql: ${TABLE}.fecha ;;
   }
+
+
+  dimension: Filtro_Mes_Anterior{
+    hidden: yes
+    type: yesno
+    sql: DATE_TRUNC(CAST(${fecha_date} AS DATE),DAY) >= DATE_TRUNC(DATE_ADD(DATE_ADD(LAST_DAY(CAST(CURRENT_DATE() AS DATE)), INTERVAL 1 DAY),INTERVAL -2 MONTH), month) AND DATE_TRUNC(CAST(${fecha_date} AS DATE),DAY) <= LAST_DAY(DATE_ADD(DATE_ADD(LAST_DAY(CAST(CURRENT_DATE() AS DATE)), INTERVAL 1 DAY),INTERVAL -2 MONTH))  ;;
+
+  }
+
+
+
+
+
   dimension: importe {
     type: number
     sql: ${TABLE}.Importe ;;
