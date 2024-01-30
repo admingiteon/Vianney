@@ -95,7 +95,7 @@ LEFT JOIN `dwh_vianney.xxvia_vw_ADIs_Mensajes` m  on m.codcliente = v.codcliente
 
   measure: promedio_ventas {
     type: number
-    sql: ${Total_importe_venta_trime}/3 ;;
+    sql: ${Total_importe_venta_trime} ;;
 
    value_format: "0.00"
 
