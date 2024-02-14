@@ -1,7 +1,9 @@
 
 view: ventas_puntos {
   derived_table: {
-    sql: SELECT       m.CODCLIENTE
+    sql:
+    SELECT * FROM (
+    SELECT       m.CODCLIENTE
             ,m.NOMBRECLIENTE
             ,m.MOBIL
             ,M.TIPO_ADI
@@ -11,7 +13,7 @@ view: ventas_puntos {
 SELECT CODCLIENTE,fecha,Importe,'ventas' Tipo FROM `vianneymx-eon.dwh_vianney.xxvia_vw_ventas_a_detalle`
 union all
 SELECT CODCLIENTE,fecha,importe,'Puntos' Tipo FROM `vianneymx-eon.dwh_vianney.xxvia_vw_puntos_usados`) V
-LEFT JOIN `dwh_vianney.xxvia_vw_ADIs_Mensajes` m  on m.codcliente = v.codcliente limit 2   ;;
+LEFT JOIN `dwh_vianney.xxvia_vw_ADIs_Mensajes` m  on m.codcliente = v.codcliente) a limit 2    ;;
   }
 
   measure: count {
@@ -21,8 +23,8 @@ LEFT JOIN `dwh_vianney.xxvia_vw_ADIs_Mensajes` m  on m.codcliente = v.codcliente
 
   dimension: codcliente {
     type: number
-    sql:"5566532268"
-  ##  sql: ${TABLE}.CODCLIENTE ;;
+    sql:"5566532268";;
+    #sql: ${TABLE}.CODCLIENTE
   }
 
   dimension: nombrecliente {
