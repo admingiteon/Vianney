@@ -29,8 +29,8 @@ view: xxvia_vw_adis_mensajes {
 
   dimension: Telefono {
     type: string
-    # sql:RIGHT(${TABLE}.MOBIL,10)  ;;
-    sql: 'NULL' ;;
+    sql:RIGHT(${TABLE}.MOBIL,10)  ;;
+    # sql: 'NULL' ;;
   }
 
   dimension: Val_telefono {
