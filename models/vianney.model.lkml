@@ -54,3 +54,4 @@ explore: xxvia_vw_ventas_a_detalle {
 
 }
 explore: ventas_puntos {}
+explore: ventas_puntos_semanas {}
