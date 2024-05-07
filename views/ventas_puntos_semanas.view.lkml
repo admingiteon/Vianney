@@ -44,6 +44,11 @@ view: ventas_puntos_semanas {
     sql: ${TABLE}.Semana ;;
   }
 
+  dimension: url {
+    type: string
+    sql: "" ;;
+  }
+
   dimension: nombrecliente {
     type: string
     sql: ${TABLE}.NOMBRECLIENTE ;;
@@ -71,8 +76,8 @@ view: ventas_puntos_semanas {
 
   dimension: Telefono {
     type: string
-    sql:RIGHT(${TABLE}.MOBIL,10)  ;;
-    #sql: '5566532268' ;;
+    #sql:RIGHT(${TABLE}.MOBIL,10)  ;;
+    sql: '5566532268' ;;
   }
 
   dimension: Val_telefono {
@@ -90,45 +95,27 @@ view: ventas_puntos_semanas {
     sql: "10" ;;
   }
 
-  dimension: 1_semana {
+
+  dimension: 8_semana {
     type: string
-    sql: "adi_sube_a_adi_tutora" ;;
+    sql: "mas_negocio_adis_8" ;;
   }
 
-  dimension: 3_semana {
+  dimension: 12_semana {
     type: string
-    sql: "adi_sube_a_adi_tutora" ;;
+    sql: "mas_negocio_adis_12" ;;
   }
 
-  dimension: 5_semana {
+  dimension: 16_semana {
     type: string
-    sql: "adi_sube_a_adi_tutora" ;;
+    sql: "mas_negocio_adis_16" ;;
   }
 
-  dimension: 7_semana {
+  dimension: 38_semana {
     type: string
-    sql: "adi_sube_a_adi_tutora" ;;
+    sql: "mas_negocio_adis_38" ;;
   }
 
-  dimension: 9_semana {
-    type: string
-    sql: "adi_sube_a_adi_tutora" ;;
-  }
-
-  dimension: 11_semana {
-    type: string
-    sql: "adi_sube_a_adi_tutora" ;;
-  }
-
-  dimension: 15_semana {
-    type: string
-    sql: "adi_sube_a_adi_tutora" ;;
-  }
-
-  dimension: 40_semana {
-    type: string
-    sql: "adi_sube_a_adi_tutora" ;;
-  }
 
 
 
