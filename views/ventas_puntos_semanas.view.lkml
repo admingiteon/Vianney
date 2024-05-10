@@ -77,7 +77,7 @@ view: ventas_puntos_semanas {
   dimension: Telefono {
     type: string
     #sql:RIGHT(${TABLE}.MOBIL,10)  ;;
-    sql: '5566532268' ;;
+    sql: '4491961831' ;;
   }
 
   dimension: Val_telefono {
