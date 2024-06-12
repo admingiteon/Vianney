@@ -153,8 +153,9 @@ LEFT JOIN `dwh_vianney.xxvia_vw_ADIs_Mensajes` m  on m.codcliente = v.codcliente
 
   dimension: Telefono {
     type: string
-    sql:RIGHT(${TABLE}.MOBIL,10)  ;;
+    #sql:RIGHT(${TABLE}.MOBIL,10)  ;;
     #sql: '5566532268' ;;
+    sql: '4491961831' ;;
   }
 
   dimension: Val_telefono {
