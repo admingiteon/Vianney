@@ -120,7 +120,7 @@ view: xxvia_vw_adis_mensajes {
 
   dimension: PLAN_FA {
     type: string
-    sql: "adi_aniversario_vianney" ;;
+    sql: "adi_aniversario_semvianney" ;;
   }
 
   dimension: Url_FA {

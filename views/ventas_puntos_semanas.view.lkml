@@ -99,12 +99,12 @@ view: ventas_puntos_semanas {
 
   dimension: 8_semana {
     type: string
-    sql: "mas_negocio_adis_8" ;;
+    sql: "mas_negocio_adis_sem8" ;;
   }
 
   dimension: 12_semana {
     type: string
-    sql: "mas_negocio_adis_12" ;;
+    sql: "mas_negocio_adis_sem12" ;;
   }
 
   dimension: 16_semana {
