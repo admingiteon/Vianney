@@ -5,7 +5,10 @@ view: xxvia_vw_adis_mensajes {
     sql: SELECT * FROM `vianneymx-eon.dwh_vianney.xxvia_vw_ADIs_Mensajes` a
              LEFT JOIN `vianneymx-eon.dwh_vianney.baja_numeros` b
                   ON RIGHT(REGEXP_REPLACE(a.MOBIL, r'\s+', ' '),10) = b.Numero
-         WHERE b.Numero IS NULL and LENGTH ( RIGHT(REGEXP_REPLACE(MOBIL, r'\s+', ' '),10))=10;;
+
+         WHERE b.Numero IS NULL -- Filtra los números de baja
+           -- Asegura que el móvil tenga 10 dígitos
+           and LENGTH ( RIGHT(REGEXP_REPLACE(MOBIL, r'\s+', ' '),10))=10 ;;
 
   }
 
