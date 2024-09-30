@@ -1,26 +1,52 @@
 
 view: ventas_puntos_semanas {
   derived_table: {
-    sql: SELECT v.CODCLIENTE
-               ,v.FECHA FECHA_VENTA
-               ,DATE_DIFF( CURRENT_DATE(),v.FECHA, WEEK) Semana
-               ,m.NOMBRECLIENTE
-               ,m.MOBIL
-               ,M.TIPO_ADI
-               ,V.Importe Importe_venta
-               ,V.Tipo
-               FROM (
-                       SELECT *,ROW_NUMBER() OVER (PARTITION BY CODCLIENTE ORDER BY FECHA DESC) RN  FROM (
+    sql:
 
-      SELECT CODCLIENTE,fecha,Importe,'ventas' Tipo FROM `vianneymx-eon.dwh_vianney.xxvia_vw_ventas_a_detalle`
-      union all
-      SELECT CODCLIENTE,fecha,importe,'Puntos' Tipo FROM `vianneymx-eon.dwh_vianney.xxvia_vw_puntos_usados`
 
-      )
-      ) v
-      LEFT JOIN `dwh_vianney.xxvia_vw_ADIs_Mensajes` m  on m.codcliente = v.codcliente
-      WHERE RN=1 and DATE_DIFF(v.FECHA, CURRENT_DATE(), WEEK)-DATE_DIFF(v.FECHA, CURRENT_DATE(), day)/7=0
-      ;;
+    WITH ventas_y_puntos AS (
+    SELECT
+        CODCLIENTE,
+        FECHA,
+        IMPORTE,
+        'ventas' AS TIPO
+    FROM `vianneymx-eon.dwh_vianney.xxvia_vw_ventas_a_detalle`
+
+    UNION ALL
+
+    SELECT
+        CODCLIENTE,
+        FECHA,
+        IMPORTE,
+        'puntos' AS TIPO
+    FROM `vianneymx-eon.dwh_vianney.xxvia_vw_puntos_usados`
+),
+clientes_con_venta_reciente AS (
+    SELECT
+        *,
+        ROW_NUMBER() OVER (PARTITION BY CODCLIENTE ORDER BY FECHA DESC) AS RN
+    FROM ventas_y_puntos
+)
+
+SELECT
+    v.CODCLIENTE,
+    v.FECHA AS FECHA_VENTA,
+    DATE_DIFF(CURRENT_DATE(), v.FECHA, WEEK) AS SEMANA,
+    m.NOMBRECLIENTE,
+    m.MOBIL,
+    m.TIPO_ADI,
+    v.IMPORTE AS IMPORTE_VENTA,
+    v.TIPO
+FROM clientes_con_venta_reciente v
+--Obtencion de Numeros
+LEFT JOIN `dwh_vianney.xxvia_vw_ADIs_Mensajes` m ON m.CODCLIENTE = v.CODCLIENTE
+-- tabla Baja de telefonos
+LEFT JOIN `vianneymx-eon.dwh_vianney.baja_numeros` b ON RIGHT(REGEXP_REPLACE(m.MOBIL, r'\s+', ''), 10) = b.NUMERO
+WHERE
+    v.RN = 1
+    AND DATE_DIFF(v.FECHA, CURRENT_DATE(), WEEK)-DATE_DIFF(v.FECHA, CURRENT_DATE(), day)/7=0 -- Solo ventas de la última semana
+    AND b.NUMERO IS NULL
+    AND LENGTH(RIGHT(REGEXP_REPLACE(m.MOBIL, r'\s+', ''), 10)) = 10 ;;
   }
 
   measure: count {

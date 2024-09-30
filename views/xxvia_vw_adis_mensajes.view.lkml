@@ -1,5 +1,13 @@
 view: xxvia_vw_adis_mensajes {
-  sql_table_name: `dwh_vianney.xxvia_vw_ADIs_Mensajes` ;;
+ # sql_table_name: `dwh_vianney.xxvia_vw_ADIs_Mensajes` ;;
+
+  derived_table: {
+    sql: SELECT * FROM `vianneymx-eon.dwh_vianney.xxvia_vw_ADIs_Mensajes` a
+             LEFT JOIN `vianneymx-eon.dwh_vianney.baja_numeros` b
+                  ON RIGHT(REGEXP_REPLACE(a.MOBIL, r'\s+', ' '),10) = b.Numero
+         WHERE b.Numero IS NULL and LENGTH ( RIGHT(REGEXP_REPLACE(MOBIL, r'\s+', ' '),10))=10;;
+
+  }
 
   dimension: codcliente {
     primary_key: yes
@@ -43,8 +51,11 @@ view: xxvia_vw_adis_mensajes {
     sql: case when LENGTH (${nombrecliente}) >3 then 1 else 0 end ;;
   }
 
-
-
+#aniversario vs Cumplaños
+dimension: Envio_unicos {
+  type: number
+ sql: case when ${Anniversary_date}=${Birthday_Date} then 1 else 0 end ;;
+}
 
 
 
