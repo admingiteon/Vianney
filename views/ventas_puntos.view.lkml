@@ -22,13 +22,6 @@ SELECT CODCLIENTE
       ,fecha,importe
       ,'Puntos' Tipo FROM `vianneymx-eon.dwh_vianney.xxvia_vw_puntos_usados`) V
 LEFT JOIN `dwh_vianney.xxvia_vw_ADIs_Mensajes` m  on m.codcliente = v.codcliente
-),
-
-clientes_con_venta_reciente AS (
-    SELECT
-        *,
-        ROW_NUMBER() OVER (PARTITION BY CODCLIENTE ORDER BY FECHA_VENTA DESC) AS RN
-    FROM ventas_y_puntos
 )
 
 SELECT       v.CODCLIENTE
@@ -37,13 +30,12 @@ SELECT       v.CODCLIENTE
             ,v.TIPO_ADI
             ,v.FECHA_VENTA
             ,v.Importe_venta
-            ,v.Tipo from clientes_con_venta_reciente v
+            ,v.Tipo from ventas_y_puntos v
 
 LEFT JOIN `vianneymx-eon.dwh_vianney.baja_numeros` b
     ON RIGHT(REGEXP_REPLACE(v.MOBIL, r'\s+', ''), 10) = b.NUMERO
-WHERE   v.RN = 1
-      AND b.NUMERO IS NULL
-      AND LENGTH(RIGHT(REGEXP_REPLACE(v.MOBIL, r'\s+', ''), 10)) = 10  ;;
+WHERE    b.NUMERO IS NULL -- Filtra los números de baja
+    AND LENGTH(RIGHT(REGEXP_REPLACE(v.MOBIL, r'\s+', ''), 10)) = 10 ;;
 
 
    #SELECT       m.CODCLIENTE
