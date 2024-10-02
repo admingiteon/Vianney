@@ -32,6 +32,8 @@ SELECT       v.CODCLIENTE
             ,v.Importe_venta
             ,v.Tipo from ventas_y_puntos v
 
+--Baja de numero
+
 LEFT JOIN `vianneymx-eon.dwh_vianney.baja_numeros` b
     ON RIGHT(REGEXP_REPLACE(v.MOBIL, r'\s+', ''), 10) = b.NUMERO
 WHERE    b.NUMERO IS NULL -- Filtra los números de baja
@@ -116,9 +118,13 @@ WHERE    b.NUMERO IS NULL -- Filtra los números de baja
   dimension: Filtro_Mes_ventas{
     hidden: yes
     type: yesno
+   # sql: DATE_TRUNC(CAST(${fecha_venta_date} AS DATE),DAY) >= DATE_TRUNC(DATE_ADD(DATE_ADD(LAST_DAY(CAST(CURRENT_DATE() AS DATE)), INTERVAL 1 DAY),INTERVAL -3 MONTH), month) AND DATE_TRUNC(CAST(${fecha_venta_date} AS DATE),DAY) <= LAST_DAY(CAST(CURRENT_DATE() AS DATE)) ;;
     sql: DATE_TRUNC(CAST(${fecha_venta_date} AS DATE),DAY) >= DATE_TRUNC(DATE_ADD(DATE_ADD(LAST_DAY(CAST(CURRENT_DATE() AS DATE)), INTERVAL 1 DAY),INTERVAL -3 MONTH), month) AND DATE_TRUNC(CAST(${fecha_venta_date} AS DATE),DAY) <= LAST_DAY(DATE_ADD(DATE_ADD(LAST_DAY(CAST(CURRENT_DATE() AS DATE)), INTERVAL 1 DAY),INTERVAL 0 MONTH))  ;;
 
   }
+
+
+
 
 
 
