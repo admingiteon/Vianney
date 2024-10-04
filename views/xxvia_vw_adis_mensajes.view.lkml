@@ -54,7 +54,7 @@ view: xxvia_vw_adis_mensajes {
     sql: case when LENGTH (${nombrecliente}) >3 then 1 else 0 end ;;
   }
 
-#aniversario vs Cumplaños
+#########################aniversario vs Cumplaños ################################################
 dimension: Envio_unicos {
   type: number
  sql: case when ${Anniversary_date}=${Birthday_Date} then 1 else 0 end ;;
